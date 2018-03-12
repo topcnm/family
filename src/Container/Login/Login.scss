@@ -1,0 +1,18 @@
+@import '../../Asset/css/constant.scss';
+.login{
+  margin: 0 auto;
+  width: 350px;
+  background: #f7f7fd;
+
+  .login-header{
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 30px;
+    background: $color-main;
+    color: white;
+  }
+  .login-body{
+    padding: 30px;
+    border: 1px solid #f0f0fb;
+  }
+}

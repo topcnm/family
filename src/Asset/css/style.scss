@@ -1,0 +1,60 @@
+@import "constant.scss";
+
+*{
+  font-size: 12px;
+  font-family: 'Microsoft YaHei',SimHei,Arial,SimSun;
+}
+
+body{
+  color: #333;
+  background-color: #f8f8f8!important;
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 10px 0;
+}
+h1{
+  font-size: 36px;
+}
+h4{
+  font-size: 17px;
+}
+
+ul,p,li{
+  margin: 0;
+  padding: 0;
+}
+
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+.page-layout{
+  position: relative;
+  .content{
+    margin: 20px;
+    background-color: #ffffff;
+
+    box-shadow: 0 2px 6px $color-box-shadow;
+  }
+}
+
+.clear-fix:after{
+  display: table;
+  content: '';
+  clear: both;
+}
+
+.pull-left{
+  float: left;
+}
+
+.pull-right{
+  float: right;
+}
+
