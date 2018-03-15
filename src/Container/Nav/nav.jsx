@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { Radio, Menu, Dropdown, Icon, message } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
-import MainMenu from './component/MainMenu';
-
 import * as loginAction from '../../Action/user';
 
 import './nav.scss';
@@ -41,16 +39,17 @@ class Nav extends Component {
   render() {
     const { user: { menu, username } } = this.props;
     return (
-      <div className="nav clear-fix">
-        <div className="nav-user">
-          <img src="/" alt="" />
-          <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">
-            <span className="ant-dropdown-link nav-user-name">
-              {username} <Icon type="down" />
-            </span>
-          </Dropdown>
+      <div className="family-nav clear-fix">
+        <div className="family-nav-content">
+          <div className="family-nav-user">
+            <img src="/" alt="" />
+            <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">
+              <span className="ant-dropdown-link nav-user-name">
+                {username} <Icon type="down" />
+              </span>
+            </Dropdown>
+          </div>
         </div>
-        <MainMenu data={menu} />
       </div>);
   }
 }

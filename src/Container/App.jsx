@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Nav from './Nav/nav';
+import Footer from './Footer';
 
 /**
 * @usage : 组件外层
@@ -21,6 +22,7 @@ class App extends Component {
           <div className="content">
             {this.props.children }
           </div>
+          <Footer />
         </div>
       );
   }

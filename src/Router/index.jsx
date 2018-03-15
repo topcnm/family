@@ -2,22 +2,22 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import React from 'react';
 import _ from 'lodash';
 import App from '../Container/App';
+
+//首页
+import Home from '../Container/Index';
+
+//登录页面
 import Login from '../Container/Login/Login';
 
-// --- cost ----
-import CostQuery from '../Container/Cost/CostQuery';
 
+// --- cost ----
+//import CostQuery from '../Container/QueryPlatform/CostQuery';
 
 
 // --- blog ----
 
 
-
-// --- album ---
-
-
-
-const isLogin = (nextState, replaceState) => {
+const onEnterCall = (nextState, replaceState) => {
   //判断登录
 };
 
@@ -28,10 +28,9 @@ const isLogin = (nextState, replaceState) => {
 const myRouter = () =>
   (
     <Router history={hashHistory}>
-      <Route path="/" component={App} onEnter={isLogin}>
-        <IndexRoute component={Login} />
-        <Route path="/login(/:redirect)" component={Login} />
-        <Route path="/costQuery" component={CostQuery} />
+      <Route path="/" component={App} onEnter={onEnterCall}>
+        <IndexRoute component={Home} />
+        <Route path="/home" component={Home} />
       </Route>
     </Router>);
 

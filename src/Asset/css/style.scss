@@ -37,10 +37,16 @@ a{
 .page-layout{
   position: relative;
   .content{
-    margin: 20px;
-    background-color: #ffffff;
+    margin: 0 auto;
 
-    box-shadow: 0 2px 6px $color-box-shadow;
+    //达成居中定宽
+    .family-body-content{
+      margin: 0 auto;
+      width: $width-content;
+    }
+    .family-body-padding{
+      padding: 50px 0 90px 0;
+    }
   }
 }
 

@@ -1,0 +1,19 @@
+@import '../../Asset/css/constant.scss';
+
+.family-footer {
+  padding: 1px;
+  background-color: $color-main ;
+  color: #ffffff;
+
+  .family-footer-content {
+    width: $width-content;
+    height: inherit;
+    margin: 30px auto;
+
+    line-height: 90px;
+
+    hr {
+      border-color: $color-vice;
+    }
+  }
+}
