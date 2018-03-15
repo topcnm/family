@@ -15,5 +15,21 @@
     hr {
       border-color: $color-vice;
     }
+
+    .family-footer-menu{
+      display: inline-block;
+
+      span{
+        padding: 0 25px;
+
+        &:nth-child(1) {
+          padding-left: 0;
+        }
+        a {
+          color: white;
+          font-size: $fs-sub-title;
+        }
+      }
+    }
   }
 }

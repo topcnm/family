@@ -5,7 +5,7 @@
   line-height:110px;
 
   background-color: $color-main ;
-  color: #ffffff;
+  overflow: hidden;
 
   .family-nav-content{
 
@@ -30,6 +30,19 @@
       .nav-user-name{
         color: #ffffff;
         opacity: 0.65;
+      }
+    }
+    .family-nav-menu{
+      display: inline-block;
+      float: right;
+
+      span{
+        padding: 0 25px;
+
+        a {
+          color: white;
+          font-size: $fs-sub-title;
+        }
       }
     }
   }

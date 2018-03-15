@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Radio, Menu, Dropdown, Icon, message } from 'antd';
@@ -41,6 +41,7 @@ class Nav extends Component {
     return (
       <div className="family-nav clear-fix">
         <div className="family-nav-content">
+
           <div className="family-nav-user">
             <img src="/" alt="" />
             <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">
@@ -48,6 +49,18 @@ class Nav extends Component {
                 {username} <Icon type="down" />
               </span>
             </Dropdown>
+          </div>
+
+          <div className="family-nav-menu">
+            {
+              _.map(menu, ({title, url}) => {
+                return (
+                  <span key={_.uniqueId('_ii')}>
+                    <Link to={url}>{title}</Link>
+                  </span>
+                )
+              })
+            }
           </div>
         </div>
       </div>);

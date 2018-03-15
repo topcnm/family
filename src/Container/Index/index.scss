@@ -6,8 +6,8 @@
     /* For carousel */
     .ant-carousel .slick-slide {
       text-align: center;
-      height: 350px;
-      line-height: 350px;
+      height: 500px;
+      line-height: 500px;
       background: #364d79;
       overflow: hidden;
     }
@@ -18,5 +18,26 @@
   }
   .family-index-sub-title{
     font-size: $fs-title;
+  }
+  .family-index-banner{
+    height: 145px;
+    line-height: 145px;
+    &.odd {
+      background-color: white;
+      color: $fc-emp;
+
+      border-top: 1px solid #f2f2f2;
+      border-bottom: 1px solid #f2f2f2;
+      box-shadow: 0 0 5px #eeeeee;
+    }
+    &.even {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+  .family-index-intro{
+    padding: 50px 0;
+
+
   }
 }
