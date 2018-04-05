@@ -3,7 +3,6 @@ import { hashHistory, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Radio, Menu, Dropdown, Icon, message } from 'antd';
-import { FormattedMessage } from 'react-intl';
 
 import * as loginAction from '../../Action/user';
 
@@ -13,7 +12,7 @@ const menuItems = clickConfig => (
   <Menu onClick={clickConfig}>
     <Menu.Item key="0">
       <span rel="noopener noreferrer">
-        <FormattedMessage id="nav.logout" />
+        登出
       </span>
     </Menu.Item>
   </Menu>);
@@ -26,10 +25,19 @@ class Nav extends Component {
     this.dropDownHandler = this.dropDownHandler.bind(this);
   }
   componentWillReceiveProps(nextProps) {
+    const { user: { username: oldUsername } } = this.props;
+    const { user: { username } } = nextProps;
 
+    if (!username) {                // 登出
+      hashHistory.push('/login');
+    }
+
+    if (!oldUsername && username) { // 登入
+      hashHistory.push('/');
+    }
   }
   logOut() {
-
+    this.props.loginAction.doLogout();
   }
   dropDownHandler({ key }) {
     if (key === '0') {
@@ -41,7 +49,6 @@ class Nav extends Component {
     return (
       <div className="family-nav clear-fix">
         <div className="family-nav-content">
-
           <div className="family-nav-user">
             <img src="/" alt="" />
             <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">

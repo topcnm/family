@@ -15,7 +15,7 @@ import Login from '../Container/Login/Login';
 
 
 // --- blog ----
-
+import BlogPlatform from '../Container/Blog/Platform';
 
 const onEnterCall = (nextState, replaceState) => {
   //判断登录
@@ -31,6 +31,8 @@ const myRouter = () =>
       <Route path="/" component={App} onEnter={onEnterCall}>
         <IndexRoute component={Home} />
         <Route path="/home" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/blog/platform" component={BlogPlatform} />
       </Route>
     </Router>);
 

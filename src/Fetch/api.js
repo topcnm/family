@@ -5,6 +5,6 @@
 const baseUrl = '';
 
 module.exports = {
-  login: `${baseUrl}/api/login`,
-  logout: `${baseUrl}/api/logout`,
+  login: `${baseUrl}/blog/login`,
+  logout: `${baseUrl}/blog/logout`,
 };
