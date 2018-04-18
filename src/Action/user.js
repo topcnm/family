@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import * as UserAction from '../Constant/user';
-import { postFormData } from '../Fetch/fetch';
+import { postFormData,getData,postUrlData,postJsonData } from '../Fetch/fetch';
 import Api from '../Fetch/api';
 
 export function updateLoginUser(data) {
@@ -69,23 +69,17 @@ function shouldLogin(state) {
 /*  eslint no-param-reassign: ["error", { "props": false }] */
 export function doLogin(user) {
   return (dispatch, getState) => {
+
     if (!shouldLogin(getState().user)) {
       return null;
     }
-    dispatch(startLogin('startLogin'));
 
-    //kzk 以三行下本地化
-    message.success('登录成功!');
-    dispatch(endLogin({}));
-    return console.log('忽略服务端');
-
-    return postFormData(Api.login, user).then((res) => {
-      const { code, data } = res;
-      if (code === '0') {
+    return postJsonData(Api.login, user).then(({ success, result, error }) => {
+      if (success) {
         message.success('登录成功!');
-        dispatch(endLogin(data));
+        dispatch(endLogin(result));
       } else {
-        message.error(res.msg);
+        message.error(error);
         dispatch(endLogin());
       }
     }).catch((err) => {
@@ -96,36 +90,15 @@ export function doLogin(user) {
 }
 
 export function doLogout() {
-  return dispatch => postFormData(Api.logout).then((res) => {
-    const { code } = res;
-    if (code === '0') {
+  return dispatch => postJsonData(Api.logout).then(({success, error}) => {
+    if (success) {
       message.success('登出成功!');
       dispatch(clearUserInfo());
     } else {
-      message.error(res.msg);
+      message.error(error);
     }
   }).catch((err) => {
     message.error(err);
   });
 }
 
-export function doSwitchLang(index) {
-  return (dispatch, getState) => {
-    const { username } = getState().user;
-
-    //kzk false为本地化代码
-    if ( false && username) {
-      return postFormData(Api.switchLanguage, { nextLang: index }).then((res) => {
-        const { code, data } = res;
-        if (code === '0') {
-          dispatch(switchLang(data.langIndex));
-        } else {
-          message.error(res.msg);
-        }
-      }).catch((err) => {
-        message.warning(err);
-      });
-    }
-    return dispatch(switchLang(index));
-  };
-}

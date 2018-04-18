@@ -21,8 +21,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 // 代理服务器, 到时候替换成后端接口和地址
-app.use('/pec', proxyMiddleware({
-  target: 'http://10.122.251.155:9011',
+app.use('/blog', proxyMiddleware({
+  target: 'http://localhost:5000',
   changeOrigin: true,
 }));
 

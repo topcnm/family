@@ -30,7 +30,10 @@ class Login extends Component {
   * @remark : 默认页面将会重新定义
   */
   checkLoginState() {
-
+    const { username } = this.props.user;
+    if (username) {
+      hashHistory.push('/');
+    }
   }
   login(e) {
     e.preventDefault();

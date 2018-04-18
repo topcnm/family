@@ -21,7 +21,7 @@ plugins.push(new ExtractTextPlugin({
 
 //2.动态嵌入静态资源
 plugins.push(new HtmlWebpackPlugin({
-  title : 'OA',
+  title : '抚琴知音',
   filename: '../built/index.html',
   template: './src/Template/index.html',
   hash: true

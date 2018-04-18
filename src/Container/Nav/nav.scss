@@ -5,16 +5,23 @@
   line-height:110px;
 
   background-color: $color-main ;
+
+
+
   overflow: hidden;
 
   .family-nav-content{
 
     width: $width-content;
     height: inherit;
+
+    background-image: url('../../Asset/img/logo.png') ;
+    background-repeat: no-repeat ;
+    background-position: 0 50%;
+    background-size: 80px;
     margin: 0 auto;
 
     .family-nav-user{
-      display: none;
       float: right;
 
       >img{

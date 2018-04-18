@@ -60,6 +60,7 @@ const Private_Menu = [
 */
 const initState = {
   ifRequesting: false,
+  id: '',
   username: '',
   password: '',
   langIndex: 0,

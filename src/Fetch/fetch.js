@@ -1,9 +1,8 @@
+import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import Promise from 'es6-promise';
 import fetch from 'isomorphic-fetch';
 import queryString from 'query-string';
-import store from '../Store';
-import Cookie from '../Tool/cookie';
-import * as loginAction from '../Action/user';
 
 const TIMEOUTLIMIT = 10000;
 
@@ -24,11 +23,8 @@ function status(response) {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response);
   }
-  if (response.status === 499) {// 499表示已经过期, 则清空所有
-    const { user: { username } } = store.getState();
-    if (username) {
-      store.dispatch(loginAction.clearUserInfo());
-    }
+  if (response.status === 401) {// 401表示已经过期, 则清空所有
+    hashHistory.push('/login');
     console.warn('擦除所有本地信息');
   }
   return Promise.reject(new Error(response.statusText));
@@ -39,15 +35,12 @@ function json(response) {
 }
 
 export function getData(url, queryObj) {
-
-  const token = new Cookie().getCookie('iPlanetDirectoryPro');
   const reqHeader = {
     method: 'GET',
     credentials: 'include',
     mode: 'cors',
     headers: {
       Accept: 'application/json, text/plain, */*',
-      Authorization: token,
     },
   };
   const myFetch = fetch(`${url}?${queryString.stringify(queryObj)}`, reqHeader);
@@ -66,7 +59,6 @@ export function getData(url, queryObj) {
 }
 
 export function postJsonData(url, queryObj) {
-  const token = new Cookie().getCookie('iPlanetDirectoryPro');
   const reqJson = {
     method: 'POST',
     body: JSON.stringify(queryObj),
@@ -75,7 +67,6 @@ export function postJsonData(url, queryObj) {
     headers: {
       Accept: 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
-      Authorization: token,
     },
   };
   const myFetch = fetch(url, reqJson);
@@ -95,14 +86,12 @@ export function postJsonData(url, queryObj) {
 }
 
 export function postFormData(url, queryObj) {
-  const token = new Cookie().getCookie('iPlanetDirectoryPro');
   const reqJson = {
     method: 'POST',
     mode: 'cors',
     body: queryString.stringify(queryObj),
     credentials: 'include',
     headers: {
-      'Authorization': token,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   };
@@ -122,14 +111,12 @@ export function postFormData(url, queryObj) {
 }
 
 export function postUrlData(url, queryObj) {
-  const token = new Cookie().getCookie('iPlanetDirectoryPro');
   const reqJson = {
     method: 'POST',
     mode: 'cors',
     credentials: 'include',
     headers: {
       'Accept': '*/*',
-      'Authorization': token,
       'Content-Type': 'application/json',
     },
   };

@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import { Row, Col, Card, Carousel } from 'antd';
+import Api from '../../Fetch/api'
+import { getData } from '../../Fetch/fetch';
 
 import './index.scss'
 const { Meta } = Card;
 
-
+const img_url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521131997068&di=54d3aaf7b8e6f059fbfa22402535c9b6&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F02%2F72%2Fcfe2c4e08c26c7e9ff3dfed99678d5ea.jpg'
 
 class Index extends Component {
   constructor(props) {
     super(props)
+  }
+  componentDidMount() {
+    //getData('/blog/search/34')
   }
   render() {
     return (
       <div className="family-index">
         <div className="family-index-car-main">
           <Carousel autoplay>
-            <div><h3>1</h3></div>
+            <div><img src={img_url}/></div>
             <div><h3>2</h3></div>
             <div><h3>3</h3></div>
             <div><h3>4</h3></div>

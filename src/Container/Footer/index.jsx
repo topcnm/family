@@ -10,7 +10,7 @@ class Footer extends Component {
     super(props)
   }
   render() {
-    const { user: { menu, username } } = this.props;
+    const { user: { menu } } = this.props;
     return (
       <div className="family-footer clear-fix">
         <div className="family-footer-content">
