@@ -28,10 +28,6 @@ class Nav extends Component {
     const { user: { username: oldUsername } } = this.props;
     const { user: { username } } = nextProps;
 
-    if (!username) {                // 登出
-      hashHistory.push('/login');
-    }
-
     if (!oldUsername && username) { // 登入
       hashHistory.push('/');
     }

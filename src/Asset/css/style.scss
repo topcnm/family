@@ -38,6 +38,7 @@ a{
 
 .page-layout{
   position: relative;
+  min-width: $width-content;
   .content{
     margin: 0 auto;
 
@@ -66,3 +67,7 @@ a{
   float: right;
 }
 
+// 富文本组件
+.ql-toolbar {
+  line-height: 24px;
+}

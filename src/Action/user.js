@@ -77,7 +77,7 @@ export function doLogin(user) {
     return postJsonData(Api.login, user).then(({ success, result, error }) => {
       if (success) {
         message.success('登录成功!');
-        dispatch(endLogin({username: result}));
+        dispatch(endLogin(result));
       } else {
         message.error(error);
         dispatch(endLogin());

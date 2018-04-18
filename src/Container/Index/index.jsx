@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Card, Carousel } from 'antd';
+import Api from '../../Fetch/api'
+import { getData } from '../../Fetch/fetch';
 
 import './index.scss'
 const { Meta } = Card;
@@ -9,6 +11,9 @@ const img_url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000
 class Index extends Component {
   constructor(props) {
     super(props)
+  }
+  componentDidMount() {
+    //getData('/blog/search/34')
   }
   render() {
     return (

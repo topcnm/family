@@ -16,6 +16,8 @@ import Login from '../Container/Login/Login';
 
 // --- blog ----
 import BlogPlatform from '../Container/Blog/Platform';
+import ArticleEdit from '../Container/Blog/Edit'
+import ArticleDetail from '../Container/Blog/Detail'
 
 const onEnterCall = (nextState, replaceState) => {
   //判断登录
@@ -33,6 +35,8 @@ const myRouter = () =>
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/blog/platform" component={BlogPlatform} />
+        <Route path="/blog/edit(/:articleId)" component={ArticleEdit} />
+        <Route path="/blog/detail/:articleId" component={ArticleDetail} />
       </Route>
     </Router>);
 
