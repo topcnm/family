@@ -58,7 +58,7 @@ class ArticleDetail extends Component {
             </Col>
           </Row>
 
-          <Row>
+          <Row style={{border: '1px solid grey', background: 'white'}}>
             <Col span={24}>
               <FormItem
                 {...formXLItemLayout}
