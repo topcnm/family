@@ -5,12 +5,12 @@
 const baseUrl = '';
 
 module.exports = {
-  login: `${baseUrl}/blog/login`,
-  logout: `${baseUrl}/blog/logout`,
+  login: `${baseUrl}/user/login`,
+  logout: `${baseUrl}/user/logout`,
+  register: `${baseUrl}/user/register`,
 
-  createArticle: `${baseUrl}/blog/create`,
-  updateArticle: `${baseUrl}/blog/update`,
-  getArticleDetail: `${baseUrl}/blog/detail`,
-
-  queryArticleList: `${baseUrl}/blog/page`,
+  createArticle: `${baseUrl}/post/create`,
+  updateArticle: `${baseUrl}/post/update`,
+  getArticleDetail: `${baseUrl}/post/detail`,
+  queryArticleList: `${baseUrl}/post/page`,
 };

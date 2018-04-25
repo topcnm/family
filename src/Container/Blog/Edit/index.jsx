@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 import { Form, Row, Col, Icon, Select, Button, Radio, Input, message } from 'antd';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -56,6 +57,7 @@ class ArticleEdit extends Component {
         postJsonData(Api.updateArticle, {...values, articleId}).then(({success,error,result}) => {
           if (success) {
             message.success('修改成功')
+            hashHistory.push('/blog/platform')
           } else {
             message.error(error)
           }
@@ -64,6 +66,7 @@ class ArticleEdit extends Component {
         postJsonData(Api.createArticle, values).then(({success,error,result}) => {
           if (success) {
             message.success('新建成功')
+            hashHistory.push('/blog/platform')
           } else {
             message.error(error)
           }

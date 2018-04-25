@@ -24,8 +24,11 @@ function status(response) {
     return Promise.resolve(response);
   }
   if (response.status === 401) {// 401表示已经过期, 则清空所有
-    hashHistory.push('/login');
-    console.warn('擦除所有本地信息');
+    // 1. 新建自定义事件
+    const clearEvent = document.createEvent('HTMLEvents');
+    clearEvent.initEvent('clearLogin', true, true);
+    // 2. 出发自定义事件
+    document.dispatchEvent(clearEvent)
   }
   return Promise.reject(new Error(response.statusText));
 }

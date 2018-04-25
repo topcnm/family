@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { hashHistory, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Radio, Menu, Dropdown, Icon, message } from 'antd';
+import { Radio, Menu, Dropdown, Icon, message, Divider } from 'antd';
 
 import * as loginAction from '../../Action/user';
 
@@ -16,6 +16,21 @@ const menuItems = clickConfig => (
       </span>
     </Menu.Item>
   </Menu>);
+
+const menuItemsNoLogin = clickConfig => (
+  <Menu onClick={clickConfig}>
+    <Menu.Item key="1">
+      <span rel="noopener noreferrer">
+        注册
+      </span>
+    </Menu.Item>
+    <Menu.Item key="2">
+      <span rel="noopener noreferrer">
+        登录
+      </span>
+    </Menu.Item>
+  </Menu>
+);
 
 class Nav extends Component {
   constructor(props) {
@@ -45,15 +60,22 @@ class Nav extends Component {
     return (
       <div className="family-nav clear-fix">
         <div className="family-nav-content">
-          <div className="family-nav-user">
-            <img src="/" alt="" />
-            <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">
-              <span className="ant-dropdown-link nav-user-name">
-                {username} <Icon type="down" />
-              </span>
-            </Dropdown>
-          </div>
-
+          {
+            username ?
+            <div className="family-nav-user">
+              <img src="/" alt="" />
+              <Dropdown overlay={menuItems(this.dropDownHandler)} placement="bottomRight">
+                <span className="ant-dropdown-link nav-user-name">
+                  {username} <Icon type="down" />
+                </span>
+              </Dropdown>
+            </div> :
+            <div className="family-nav-user">
+              <Link to={'/login'}>登录</Link>
+              <Divider type="vertical" />
+              <Link to={'/register'}>注册</Link>
+            </div>
+          }
           <div className="family-nav-menu">
             {
               _.map(menu, ({title, url}) => {

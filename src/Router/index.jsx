@@ -8,6 +8,7 @@ import Home from '../Container/Index';
 
 //登录页面
 import Login from '../Container/Login/Login';
+import Register from '../Container/Register'
 
 
 // --- cost ----
@@ -34,6 +35,7 @@ const myRouter = () =>
         <IndexRoute component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/blog/platform" component={BlogPlatform} />
         <Route path="/blog/edit(/:articleId)" component={ArticleEdit} />
         <Route path="/blog/detail/:articleId" component={ArticleDetail} />
