@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { Row, Col, Button, Icon, Table,  } from 'antd';
+import { Row, Col, Button, Icon, Input, Table, Breadcrumb,  } from 'antd';
 
 import * as ArticleAction from '../../../Action/article';
 
 import './index.scss';
 
+const Search = Input.Search;
+
 class BlogPlatform extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      list: [],
-    }
+    this.handleClickCreateButton = this.handleClickCreateButton.bind(this);
+    this.handleSearchPost = this.handleSearchPost.bind(this);
   }
   componentDidMount() {
-    this.props.articleAction.queryList()
+    this.props.articleAction.queryList();
+  }
+  componentWillUnmount() {
+
+  }
+  handleClickCreateButton() {
+    hashHistory.push(`/blog/edit`);
+  }
+  handleSearchPost() {
+
   }
   render() {
     const {
@@ -33,30 +44,48 @@ class BlogPlatform extends Component {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
+        width: 550,
         render: (t, {id}, index) => {
-          return (<Link to={`/blog/detail/${id}`}>{t}</Link>)
+          return (<p className="table-row-p"><Link to={`/blog/detail/${id}`}>{t}</Link></p>)
         }
       },
       {
-        title: '分类',
-        dataIndex: 'tagName',
-        key: 'tagName'
-      },
-      {
-        title: '作者',
-        dataIndex: 'authorName'
+        title: '日期',
+        dataIndex: 'publishDate',
+        align: 'right',
+        width: 180,
       }
-    ]
+    ];
     return (
       <div className="family-blog family-body-content family-body-padding">
+        <Row className="family-page-nav">
+          <Col span={12}>
+            <Breadcrumb>
+              <Breadcrumb.Item href="#/">
+                <Icon type="home" />
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="#/blog/platform">
+                <span>文章列表</span>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+          <Col span={12} style={{textAlign: 'right'}}>
+            <Button
+              type="primary"
+              style={{marginRight: 10}}
+              onClick={this.handleClickCreateButton}
+            >
+              写新文章
+              <Icon type="edit" />
+            </Button>
+            <Search
+              placeholder="请输入文章名字"
+              onSearch={this.handleSearchPost}
+              style={{ width: 200 }}
+              />
+          </Col>
+        </Row>
         <div>
-          <Button>
-            <Link to={`/blog/edit`}>写新文章</Link>
-            <Icon type="edit" />
-          </Button>
-        </div>
-        <div>
-
           <Row gutter={30}>
             <Col className="gutter-row" span={16}>
               <Table

@@ -7,7 +7,7 @@ const init_state = {
   // 列表部分
   queryData: {
     keyword: '',
-    tagId: '3',
+    tagId: '',
     pageNo: 1,
     pageSize: 10,
   },

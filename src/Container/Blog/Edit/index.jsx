@@ -20,7 +20,7 @@ const modules = {
     [{ script: 'super' }, { script: 'sub' }],
     ['blockquote', 'code-block' ],
     [{ list: 'ordered' }, { list: 'bullet'}, { indent: '-1' }, { indent: '+1' }],
-    [ 'link', 'image'],
+    [ 'link'],
     [ 'clean' ]
   ],
 };
@@ -108,14 +108,14 @@ class ArticleEdit extends Component {
                 label="文章类别"
                 >
                 {getFieldDecorator('tagId', {
-                  initialValue: 3,
+                  initialValue: 1,
                   rules: [{ required: true, message: '请选择文章类别' }]
                 })(
                   <Select placeholder={'文章类别'}>
-                    <Option value={3}>通用</Option>
-                    <Option value={4}>生活</Option>
-                    <Option value={5}>旅游</Option>
-                    <Option value={6}>情感</Option>
+                    <Option value={1}>通用</Option>
+                    <Option value={2}>生活</Option>
+                    <Option value={3}>旅游</Option>
+                    <Option value={4}>情感</Option>
                   </Select>
                 )}
               </FormItem>

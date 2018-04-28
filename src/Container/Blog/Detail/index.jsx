@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Row, Col, Icon, Select, Button, Radio, Input, message } from 'antd';
+import { Form, Row, Col, Icon, Select, Button, Radio, Input, message, Breadcrumb } from 'antd';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -43,6 +43,21 @@ class ArticleDetail extends Component {
     return (
       <div className="family-blog family-body-content family-body-padding">
         <Form layout="horizontal">
+          <Row className="family-page-nav">
+            <Col span={12}>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#/">
+                  <Icon type="home" />
+                </Breadcrumb.Item>
+                <Breadcrumb.Item href="#/blog/platform">
+                  <span>文章列表</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <span>文章详情</span>
+                </Breadcrumb.Item>
+              </Breadcrumb>
+            </Col>
+          </Row>
 
           <Row>
               <h3 style={{fontSize: 24, textAlign: 'center'}}>{this.state.title}</h3>
