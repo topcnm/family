@@ -39,10 +39,9 @@ export function queryList() {
       dispatch(finish_query());
       if (success) {
         const { list, total } = result;
-        console.log(900, list)
         dispatch(store_query_list({list, total}))
       } else {
-        dispatch(store_query_list([]))
+        dispatch(store_query_list({list: [], total: 0}))
       }
     })
   }

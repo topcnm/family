@@ -32,7 +32,7 @@ export default function article(state = init_state, action) {
     case ArticleAction.STORE_ARTICLE_QUERY_CONDITION:
       return {...state, queryData: action.data };
     case ArticleAction.STORE_ARTICLE_QUERY_LIST:
-      return {...state, list: action.data.list, totalPage: action.data.total};
+      return {...state, list: action.data.list, total: action.data.total};
     default :
       return state;
   }

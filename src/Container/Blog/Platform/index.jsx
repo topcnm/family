@@ -17,6 +17,7 @@ class BlogPlatform extends Component {
 
     this.handleClickCreateButton = this.handleClickCreateButton.bind(this);
     this.handleSearchPost = this.handleSearchPost.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentDidMount() {
     this.props.articleAction.queryList();
@@ -27,8 +28,18 @@ class BlogPlatform extends Component {
   handleClickCreateButton() {
     hashHistory.push(`/blog/edit`);
   }
-  handleSearchPost() {
-
+  handleSearchPost(value) {
+    const queryParam = _.cloneDeep(this.props.article.queryData);
+    queryParam.keyword = value;
+    queryParam.pageNo = 1;
+    this.props.articleAction.overwrite_query_condition(queryParam);
+    this.props.articleAction.queryList();
+  }
+  handlePageChange(pageObj) {
+    const queryParam = _.cloneDeep(this.props.article.queryData);
+    queryParam.pageNo = pageObj.current;
+    this.props.articleAction.overwrite_query_condition(queryParam);
+    this.props.articleAction.queryList();
   }
   render() {
     const {
@@ -36,7 +47,8 @@ class BlogPlatform extends Component {
       total,
       queryData: {
         pageNo,
-        pageSize
+        pageSize,
+        keyword,
         }
       } = this.props.article;
     const columns = [
@@ -80,6 +92,7 @@ class BlogPlatform extends Component {
             </Button>
             <Search
               placeholder="请输入文章名字"
+              defaultValue={keyword}
               onSearch={this.handleSearchPost}
               style={{ width: 200 }}
               />
@@ -94,10 +107,10 @@ class BlogPlatform extends Component {
                 dataSource={list}
                 loading={false}
                 rowKey={row => row.id}
-                onChange={()=>{}}
+                onChange={this.handlePageChange}
                 pagination={{
                   current: pageNo,
-                  total: total,
+                  total: total * pageSize,
                 }}
                 />
             </Col>
