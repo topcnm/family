@@ -31,6 +31,11 @@ app.use('/post', proxyMiddleware({
   changeOrigin: true,
 }));
 
+app.use('/album', proxyMiddleware({
+  target: 'http://127.0.0.1:5000',
+  changeOrigin: true,
+}));
+
 app.use(require('webpack-hot-middleware')(compiler));
 
 //监听请求

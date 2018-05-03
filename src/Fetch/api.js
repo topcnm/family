@@ -13,4 +13,6 @@ module.exports = {
   updateArticle: `${baseUrl}/post/update`,
   getArticleDetail: `${baseUrl}/post/detail`,
   queryArticleList: `${baseUrl}/post/page`,
+
+  uploadFiles: `${baseUrl}/album/upload`,
 };

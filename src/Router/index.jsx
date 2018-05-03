@@ -17,8 +17,10 @@ import Register from '../Container/Register'
 
 // --- blog ----
 import BlogPlatform from '../Container/Blog/Platform';
-import ArticleEdit from '../Container/Blog/Edit'
-import ArticleDetail from '../Container/Blog/Detail'
+import ArticleEdit from '../Container/Blog/Edit';
+import ArticleDetail from '../Container/Blog/Detail';
+
+import UploadTest from '../Container/TestUpload';
 
 const onEnterCall = (nextState, replaceState) => {
   //判断登录
@@ -39,6 +41,8 @@ const myRouter = () =>
         <Route path="/blog/platform" component={BlogPlatform} />
         <Route path="/blog/edit(/:articleId)" component={ArticleEdit} />
         <Route path="/blog/detail/:articleId" component={ArticleDetail} />
+
+        <Route path="/upload" component={UploadTest} />
       </Route>
     </Router>);
 
