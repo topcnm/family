@@ -42,10 +42,11 @@ class Album extends Component {
   }
   getAlbumList() {
     const {
+      userInfo: { id },
       params: { queryId }
       } = this.props;
 
-    getData(Api.getAlbumList, { userId: queryId }).then(({success, result}) => {
+    getData(Api.getAlbumList, { userId: queryId || id }).then(({success, result}) => {
       if (success) {
         this.setState({
           albumList: result.list
@@ -54,9 +55,13 @@ class Album extends Component {
     })
   }
   handleEditAlum(params) {
+    const { currentAlbumId } = this.state;
+    if (currentAlbumId) {
+      params.albumId = currentAlbumId
+    }
     postJsonData(Api.createAlbum, params).then(({success}) => {
       if (success) {
-        message.success('新建成功');
+        message.success(`${currentAlbumId?'编辑': '新建'}成功`);
         this.hideAlbum();
         this.getAlbumList();
       }
@@ -104,6 +109,12 @@ class Album extends Component {
 
     const { albumList, showAlbum, showPic } = this.state;
 
+    /**
+     * 已经登录未传值 或者 已经登录值一样
+     * @type {*|boolean}
+     */
+    const isAuthor = (id && !queryId) || (id && id == queryId);
+
     return (
       <div className="family-blog family-body-content family-body-padding">
         <Row className="family-page-nav">
@@ -118,8 +129,7 @@ class Album extends Component {
             </Breadcrumb>
           </Col>
           {
-            id &&
-            id == queryId &&
+            isAuthor &&
             <Col span={12} style={{textAlign: 'right'}}>
               <Button
                 type="primary"
@@ -132,17 +142,17 @@ class Album extends Component {
             </Col>
           }
         </Row>
-        <Row gutter={12}>
+        <Row gutter={24}>
           {
             _.map(albumList, ({id: albumId, front, title, remark}) => {
               return (
                 <Col span={6} key={_.uniqueId('ff')}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: '100%' }}
                     cover={<img alt={title} src={ front || "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"} />}
                     actions={
-                      id == queryId ?
+                      isAuthor ?
                       [
                          <Icon type="delete" onClick={() => { this.handleDeleteAlbum(albumId)}} />,
                          <Icon type="setting" onClick={() => { this.showAlbum(albumId) }} />,
@@ -165,7 +175,7 @@ class Album extends Component {
           <Col span={6}>
             <Card
               hoverable
-              style={{ width: 240 }}
+              style={{ width: '100%' }}
               cover={<img alt={'默认'} src={ "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"} />}
               actions={[
                  <Icon type="search" onClick={() => { this.showPic() }} />,
@@ -192,8 +202,8 @@ class Album extends Component {
         {
           showPic &&
             <PicsModal
-              isAuthor={queryId == id}
-              userId={queryId}
+              isAuthor={isAuthor}
+              userId={queryId || id}
               albumId={this.state.currentAlbumId}
               onOk={this.hidePic}
               onCancel={this.hidePic}
@@ -262,7 +272,8 @@ class PicsModal extends Component {
   }
   handleMigratePic() {
     const { selectedPic, selectedAlbumId } = this.state;
-
+    postJsonData(Api.setPictureBelong,
+      { picList: selectedPic.join(), albumId: selectedAlbumId })
 
   }
   render() {
@@ -276,7 +287,7 @@ class PicsModal extends Component {
         onCancel={this.props.onCancel}
         >
         <div>
-          <Row gutter={16}>
+          <Row gutter={24}>
           {
            _.map(pictureList, ({url, id}) => {
              const isChecked = _.indexOf(selectedPic, id) > -1 ;
@@ -292,7 +303,6 @@ class PicsModal extends Component {
                    ]}
                  >
                    <Meta
-                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                      title={`还没有备注-${id}`}
                      description="This is the description"
                      />
@@ -302,8 +312,12 @@ class PicsModal extends Component {
            })
           }
           </Row>
+          <Row>
+            {!pictureList.length && '暂无图片'}
+          </Row>
           {
             this.props.isAuthor &&
+            !!pictureList.length &&
             <Row style={{marginTop: 24}}>
               <Select
                 style={{ width: 320 }}
@@ -339,7 +353,14 @@ class AlbumModal extends Component {
   }
   componentDidMount() {
     // 根据参数查询详情
-    console.log(this.props)
+    const { albumId } = this.props;
+    if (albumId) {
+      getData(Api.getAlbumDetail, {albumId}).then(({success, result}) => {
+        if (success) {
+          this.props.form.setFieldsValue(result);
+        }
+      })
+    }
   }
   handleSave() {
     this.props.form.validateFields((err, values) =>{

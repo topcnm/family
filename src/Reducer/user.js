@@ -24,32 +24,13 @@ const Common_Menu = [
       },
     ],
   },
-  {
-    title: '其他菜单',      // 页面展示的汉字
-    key: 'home',
-    url: '/',           // 点击后的hash路劲
-    children: [],       // 展示的子菜单
-  },
-  {
-    title: '关于我们 ABOUT US',      // 页面展示的汉字
-    key: 'home',
-    url: '/',           // 点击后的hash路劲
-    children: [],       // 展示的子菜单
-  },
 ];
 
 const Private_Menu = [
   {
-    title: 'XXX',
-    key: 'query',
-    url: '/query/platform',
-    children: [
-      {
-        title: '消费支出',
-        key: 'costQuery',
-        url: '/query/costQuery',
-      },
-    ]
+    title: '我的相册',
+    key: 'myAlbum',
+    url: '/blog/album'
   }
 ];
 
@@ -81,8 +62,9 @@ export default function user(state = initState, action) {
     case userAction.RESET_REQUEST:
       return Object.assign({}, state, { isRequesting: false });
 
-    case userAction.UPDATE_PRIVATE_LANG:
-      return Object.assign({}, state, { langIndex: action.data });
+    // 增加个人菜单
+    case userAction.UPDATE_PRIVATE_MENU:
+      return Object.assign({}, state, { menu: Common_Menu.concat(Private_Menu) });
 
     case userAction.CLEAR_USER_INFO:
       return Object.assign({}, initState);

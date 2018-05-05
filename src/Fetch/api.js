@@ -17,7 +17,9 @@ module.exports = {
   uploadFiles: `${baseUrl}/album/upload`,
   getPictureList: `${baseUrl}/album/pic/list`,
   getAlbumList: `${baseUrl}/album/list`,
+  getAlbumDetail: `${baseUrl}/album/detail`,
   createAlbum: `${baseUrl}/album/create`,
   deleteAlbum: `${baseUrl}/album/delete`,
+
   setPictureBelong: `${baseUrl}/album/pic/belong`,
 };

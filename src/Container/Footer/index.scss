@@ -13,7 +13,9 @@
     line-height: 90px;
 
     hr {
-      border-color: $color-vice;
+      height: 1px;
+      border: none;
+      background: $color-vice;
     }
 
     .family-footer-menu{

@@ -36,10 +36,9 @@ export function resetRequest() {
   };
 }
 
-export function switchLang(index) {
+export function updateMenu() {
   return {
-    type: UserAction.UPDATE_PRIVATE_LANG,
-    data: index,
+    type: UserAction.UPDATE_PRIVATE_MENU,
   };
 }
 
@@ -78,6 +77,7 @@ export function doLogin(user) {
       if (success) {
         message.success('登录成功!');
         dispatch(endLogin(result));
+        dispatch(updateMenu())
       } else {
         message.error(error);
         dispatch(endLogin());
