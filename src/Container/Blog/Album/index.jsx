@@ -314,7 +314,7 @@ class PicsModal extends Component {
                <Col span="6" key={_.uniqueId('ff')}>
                  <Card
                    style={{ width: '100%' }}
-                   cover={<img alt="example" height={100} src={url} />}
+                   cover={<img alt="example" src={url} />}
                    actions={this.props.isAuthor && [
                      albumId && <Icon type="setting" onClick={() =>{ this.handleSetFront(id) }} />,
                      <Checkbox checked={isChecked} onChange={() =>{ this.handlePicSelect(isChecked, id) }}/>
