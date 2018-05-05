@@ -6,10 +6,16 @@ import { connect } from 'react-redux';
 import Api from '../../../Fetch/api.js';
 import { getData, postJsonData } from '../../../Fetch/fetch.js';
 
+import './index.scss';
+
 const { Meta } = Card;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const Option = Select.Option;
+
+const defaultFront = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
+const unsortTitle = '未分类相册';
+const unsortRemark = '已经上传未被分发到相册的图片...';
 
 /**
  * 如果未传入userid， 那么只能看管理员公开的相册
@@ -150,7 +156,7 @@ class Album extends Component {
                   <Card
                     hoverable
                     style={{ width: '100%' }}
-                    cover={<img alt={title} src={ front || "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"} />}
+                    cover={<div className="family-album-pic" alt={title} style={{backgroundImage: `url(${front || defaultFront})`}} />}
                     actions={
                       isAuthor ?
                       [
@@ -164,6 +170,7 @@ class Album extends Component {
                     }
                   >
                     <Meta
+                      className="family-album-meta"
                       title={title}
                       description={remark}
                       />
@@ -176,15 +183,16 @@ class Album extends Component {
             <Card
               hoverable
               style={{ width: '100%' }}
-              cover={<img alt={'默认'} src={ "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"} />}
+              cover={<div className="family-album-pic" alt={'默认'} style={{backgroundImage: `url(${defaultFront})`}} />}
               actions={[
                  <Icon type="search" onClick={() => { this.showPic() }} />,
 
               ]}
               >
               <Meta
-                title={'未分类相册'}
-                description={'...'}
+                className="family-album-meta"
+                title={unsortTitle}
+                description={unsortRemark}
                 />
             </Card>
           </Col>
@@ -300,7 +308,34 @@ class PicsModal extends Component {
     return (
       <Modal
         width={960}
-        title={'图片列表'}
+        closable={false}
+        title={
+          <Row>
+            <Col span={6}>
+              图片列表
+            </Col>
+            {
+              this.props.isAuthor &&
+              !!pictureList.length &&
+              <Col span={18} style={{textAlign: 'right'}}>
+                <Select
+                  style={{ width: 220 }}
+                  value={this.state.selectedAlbumId}
+                  onChange={this.handleAlbumChange}
+                  placeholder={'请选择相册'}>
+                  <Option key={_.uniqueId('dd')} value={''}>请选择相册</Option>
+                  {
+                    _.map(this.props.albumList, ({id, title})=>{
+                      return <Option key={_.uniqueId('dd')} value={id}>{title}</Option>
+                    })
+                  }
+                </Select>
+                <Button style={{marginLeft: 15}} onClick={this.handleMigratePic}>
+                  迁移图片
+                </Button>
+            </Col>
+            }
+          </Row>}
         visible={true}
         onOk={this.props.onOk}
         onCancel={this.props.onCancel}
@@ -314,7 +349,7 @@ class PicsModal extends Component {
                <Col span="6" key={_.uniqueId('ff')}>
                  <Card
                    style={{ width: '100%' }}
-                   cover={<img alt="example" src={url} />}
+                   cover={<img className="family-pic-pic" alt="example" src={url} />}
                    actions={this.props.isAuthor && [
                      albumId && <Icon type="setting" onClick={() =>{ this.handleSetFront(id) }} />,
                      <Checkbox checked={isChecked} onChange={() =>{ this.handlePicSelect(isChecked, id) }}/>
@@ -333,26 +368,6 @@ class PicsModal extends Component {
           <Row>
             {!pictureList.length && '暂无图片'}
           </Row>
-          {
-            this.props.isAuthor &&
-            !!pictureList.length &&
-            <Row style={{marginTop: 24}}>
-              <Select
-                style={{ width: 320 }}
-                value={this.state.selectedAlbumId}
-                onChange={this.handleAlbumChange}
-                placeholder={'请选择相册'}>
-                <Option key={_.uniqueId('dd')} value={''}>请选择相册</Option>
-                {
-                  _.map(this.props.albumList, ({id, title})=>{
-                    return <Option key={_.uniqueId('dd')} value={id}>{title}</Option>
-                  })
-                }
-              </Select>
-              <Button style={{marginLeft: 15}} onClick={this.handleMigratePic}>迁移选中的图片</Button>
-            </Row>
-          }
-
         </div>
       </Modal>
     )
@@ -413,7 +428,10 @@ class AlbumModal extends Component {
             <FormItem {...formItemLayout} label={'相册标题'}>
               {getFieldDecorator('title', {
                 initialValue: '',
-                rules: [{ required: true }]
+                rules: [
+                  { required: true, message: '相册标题为必填项目' },
+                  { max: 10, message: '相册标题最长10个字' }
+                ]
               })(
                 <Input placeholder="请输入相册标题" />
               )}
@@ -422,7 +440,10 @@ class AlbumModal extends Component {
             <FormItem {...formItemLayout} label={'相册说明'}>
               {getFieldDecorator('remark', {
                 initialValue: '',
-                rules: [{ required: true }]
+                rules: [
+                  { required: true, message: '相册说明为必填项目'  },
+                  { max: 45, message: '相册说明最长45个字' }
+                ]
               })(
                 <Input.TextArea placeholder="请输入相册说明" />
               )}
