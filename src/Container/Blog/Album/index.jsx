@@ -232,16 +232,22 @@ class PicsModal extends Component {
     this.handleAlbumChange = this.handleAlbumChange.bind(this);
     this.handlePicSelect = this.handlePicSelect.bind(this);
     this.handleMigratePic = this.handleMigratePic.bind(this);
+    this.handleSetFront = this.handleSetFront.bind(this);
+
+    this.getPicList = this.getPicList.bind(this);
   }
   componentDidMount() {
+    this.getPicList()
+  }
+  getPicList() {
     const {
       userId,
       albumId,
       } = this.props;
 
     const queryObj = albumId ?
-      { userId, albumId } :
-      { userId };
+    { userId, albumId } :
+    { userId };
 
     getData(Api.getPictureList, queryObj).then(({success, result}) => {
       if (success) {
@@ -273,11 +279,24 @@ class PicsModal extends Component {
   handleMigratePic() {
     const { selectedPic, selectedAlbumId } = this.state;
     postJsonData(Api.setPictureBelong,
-      { picList: selectedPic.join(), albumId: selectedAlbumId })
-
+      { picList: selectedPic.join(), albumId: selectedAlbumId }).
+      then(({success, result}) => {
+        if (success) {
+          this.getPicList();
+        }
+      })
+  }
+  handleSetFront(picId) {
+    const { albumId } = this.props;
+    postJsonData(Api.setFrontPic, { albumId, picId }).then(({success}) => {
+      if (success) {
+        message.success('设置首页成功')
+      }
+    })
   }
   render() {
     const { pictureList, selectedPic } = this.state;
+    const { albumId } = this.props;
     return (
       <Modal
         width={960}
@@ -297,8 +316,7 @@ class PicsModal extends Component {
                    style={{ width: '100%' }}
                    cover={<img alt="example" height={100} src={url} />}
                    actions={this.props.isAuthor && [
-                     <Icon type="setting" />,
-                     <Icon type="edit" />,
+                     albumId && <Icon type="setting" onClick={() =>{ this.handleSetFront(id) }} />,
                      <Checkbox checked={isChecked} onChange={() =>{ this.handlePicSelect(isChecked, id) }}/>
                    ]}
                  >

@@ -22,4 +22,5 @@ module.exports = {
   deleteAlbum: `${baseUrl}/album/delete`,
 
   setPictureBelong: `${baseUrl}/album/pic/belong`,
+  setFrontPic: `${baseUrl}/album/setFront`,
 };
