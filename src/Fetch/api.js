@@ -15,4 +15,9 @@ module.exports = {
   queryArticleList: `${baseUrl}/post/page`,
 
   uploadFiles: `${baseUrl}/album/upload`,
+  getPictureList: `${baseUrl}/album/pic/list`,
+  getAlbumList: `${baseUrl}/album/list`,
+  createAlbum: `${baseUrl}/album/create`,
+  deleteAlbum: `${baseUrl}/album/delete`,
+  setPictureBelong: `${baseUrl}/album/pic/belong`,
 };

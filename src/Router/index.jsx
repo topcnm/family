@@ -19,6 +19,7 @@ import Register from '../Container/Register'
 import BlogPlatform from '../Container/Blog/Platform';
 import ArticleEdit from '../Container/Blog/Edit';
 import ArticleDetail from '../Container/Blog/Detail';
+import Alum from '../Container/Blog/Album';
 
 import UploadTest from '../Container/TestUpload';
 
@@ -43,6 +44,8 @@ const myRouter = () =>
         <Route path="/blog/detail/:articleId" component={ArticleDetail} />
 
         <Route path="/upload" component={UploadTest} />
+        <Route path="/blog/album(/:queryId)(/:queryName)" component={Alum} />
+
       </Route>
     </Router>);
 
