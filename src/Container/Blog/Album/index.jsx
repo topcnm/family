@@ -152,7 +152,7 @@ class Album extends Component {
           {
             _.map(albumList, ({id: albumId, front, title, remark}) => {
               return (
-                <Col span={6} key={_.uniqueId('ff')}>
+                <Col span={6} key={_.uniqueId('ff')} style={{marginBottom: 24}}>
                   <Card
                     hoverable
                     style={{ width: '100%' }}
@@ -179,7 +179,7 @@ class Album extends Component {
               )
             })
           }
-          <Col span={6}>
+          <Col span={6} style={{marginBottom: 24}}>
             <Card
               hoverable
               style={{ width: '100%' }}
@@ -346,10 +346,10 @@ class PicsModal extends Component {
            _.map(pictureList, ({url, id}) => {
              const isChecked = _.indexOf(selectedPic, id) > -1 ;
              return (
-               <Col span="6" key={_.uniqueId('ff')}>
+               <Col span="6" key={_.uniqueId('ff')} style={{marginBottom: 24}}>
                  <Card
                    style={{ width: '100%' }}
-                   cover={<img className="family-pic-pic" alt="example" src={url} />}
+                   cover={<div className="family-pic-pic" alt="example" style={{backgroundImage: `url(${url || defaultFront})`}} />}
                    actions={this.props.isAuthor && [
                      albumId && <Icon type="setting" onClick={() =>{ this.handleSetFront(id) }} />,
                      <Checkbox checked={isChecked} onChange={() =>{ this.handlePicSelect(isChecked, id) }}/>
